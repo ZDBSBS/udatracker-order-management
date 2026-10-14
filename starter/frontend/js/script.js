@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchAndRenderOrders(status = '') {
         try {
-            const url = status ? `/api/orders?status=${status}` : '/api/orders';
+            const url = status ? `api/orders?status=${status}` : 'api/orders';
             const response = await fetch(url);
             const orders = await response.json();
             if (!response.ok) throw new Error(orders.error || 'Unknown error');
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const orderData = Object.fromEntries(formData.entries());
         orderData.quantity = parseInt(orderData.quantity);
         try {
-            const response = await fetch('/api/orders', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(orderData) });
+            const response = await fetch('api/orders', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(orderData) });
             const result = await response.json();
             if (!response.ok) throw new Error(result.error);
             showMessage(`Order ${result.order_id} added!`, 'success');
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         singleOrderDetails.classList.add('hidden');
         if (!orderId) { showMessage('Please enter an Order ID.', 'error'); return; }
         try {
-            const response = await fetch(`/api/orders/${orderId}`);
+            const response = await fetch(`api/orders/${orderId}`);
             const order = await response.json();
             if (!response.ok) throw new Error(order.error);
             singleOrderDetails.querySelector('pre').textContent = JSON.stringify(order, null, 2);
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const newStatus = document.getElementById('update-new-status').value;
         if (!orderId || !newStatus) { showMessage('Please enter an Order ID and select a new status.', 'error'); return; }
         try {
-            const response = await fetch(`/api/orders/${orderId}/status`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ new_status: newStatus }) });
+            const response = await fetch(`api/orders/${orderId}/status`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ new_status: newStatus }) });
             const result = await response.json();
             if (!response.ok) throw new Error(result.error);
             showMessage(`Order ${orderId} status updated.`, 'success');
