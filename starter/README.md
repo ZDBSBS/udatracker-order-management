@@ -23,3 +23,13 @@ This directory contains the starter code for the Udatracker project. The initial
 ├── pytest.ini
 └── README.md
 ```
+
+---
+
+## Project Reflection
+
+- I kept the business logic inside the `OrderTracker` class and used the Flask routes only to process requests, call the appropriate methods, and format JSON responses. This separation made the application easier to test and maintain.
+
+- The test-first workflow helped identify problems early. For example, the tests revealed that invalid statuses and empty order IDs should be rejected before accessing the storage layer. This led to clearer validation and more predictable error handling.
+
+- If I continued the project, I would replace the in-memory storage with persistent database storage. This would prevent orders from being lost when the application restarts. I would also add more API tests for invalid request data, duplicate order IDs, and missing JSON fields.
