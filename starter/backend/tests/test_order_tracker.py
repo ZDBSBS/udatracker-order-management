@@ -27,3 +27,18 @@ def order_tracker(mock_storage):
 #
 # --- TODO: add test functions below this line ---
 #
+def test_add_order_successfully(order_tracker, mock_storage):
+    """Tests adding a new order with default 'pending' status."""
+    order_tracker.add_order("ORD001", "Laptop", 1, "CUST001")
+
+    # We expect save_order to be called once
+    mock_storage.save_order.assert_called_once_with(
+        "ORD001",
+        {
+            "order_id": "ORD001",
+            "item_name": "Laptop",
+            "quantity": 1,
+            "customer_id": "CUST001",
+            "status": "pending",
+        },
+    )
